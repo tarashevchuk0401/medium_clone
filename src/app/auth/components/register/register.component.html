@@ -1,0 +1,20 @@
+<div class="wrapper">
+    <div>is subm: {{isSubmitting$ | async }}</div>
+    <h1 class="text">Sign Up</h1>
+    <p class="text">
+        <a routerLink="/login">Have an account?</a>
+    </p>
+    BACKEND ERRORS HERE
+    <form [formGroup]="form" (ngSubmit)="onSubmit()">
+        <fieldset class="form-group">
+            <input formControlName="username" type="text" class="" placeholder="Username">
+        </fieldset>
+        <fieldset class="form-group">
+            <input formControlName="email" type="text" class="" placeholder="Email">
+        </fieldset>
+        <fieldset class="form-group">
+            <input formControlName="password" type="password" class="" placeholder="Password">
+        </fieldset>
+        <button type="submit" class="btn_submit" [disabled]="isSubmitting$ | async">Submit</button>
+    </form>
+</div>
