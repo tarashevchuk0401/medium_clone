@@ -1,10 +1,15 @@
 <div class="wrapper">
-    <div>is subm: {{isSubmitting$ | async }}</div>
+    <div>is subm: {{(backendErrors$ | async) }}</div>
     <h1 class="text">Sign Up</h1>
     <p class="text">
         <a routerLink="/login">Have an account?</a>
     </p>
-    BACKEND ERRORS HERE
+    @if(backendErrors$ | async){
+    <app-backend-error-messages 
+    [backendErrors]="backendErrors$| async"
+     ></app-backend-error-messages>
+     
+    }
     <form [formGroup]="form" (ngSubmit)="onSubmit()">
         <fieldset class="form-group">
             <input formControlName="username" type="text" class="" placeholder="Username">
