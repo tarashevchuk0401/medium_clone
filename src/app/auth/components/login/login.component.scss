@@ -1,0 +1,35 @@
+.wrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    .text {
+        text-align: center;
+    }
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+}
+
+.btn_submit {
+    padding: 10px;
+    margin: 10px;
+    border-radius: 10px;
+    border: none;
+    background-color: rgba(36, 147, 44);
+
+    &:disabled{
+        opacity: 0.5;
+        background-color: rgb(153, 176, 156);
+    }
+}
+
+input{
+    border: 2px solid gray;
+    background-color: white;
+    border-radius: 5px;
+    padding: 5px;
+}

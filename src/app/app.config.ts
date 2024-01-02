@@ -8,12 +8,16 @@ import { authFeatureKey, authReducer } from './auth/store/reducers';
 import { HttpClient, provideHttpClient } from '@angular/common/http';
 import { provideEffects } from '@ngrx/effects';
 import * as authEffects from './auth/store/effect';
+import { provideRouterStore, routerReducer } from '@ngrx/router-store';
 
 export const appConfig: ApplicationConfig = {
     providers: [
         provideRouter(routes),
         provideHttpClient(),
-        provideStore(),
+        provideStore({
+            router: routerReducer
+        }),
+        provideRouterStore(),
         provideState(authFeatureKey, authReducer),
         provideEffects(
             authEffects,

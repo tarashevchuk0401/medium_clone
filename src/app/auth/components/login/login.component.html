@@ -1,0 +1,21 @@
+<div class="wrapper">
+    <div>is subm: {{(backendErrors$ | async) }}</div>
+    <h1 class="text">Sign In</h1>
+    <p class="text">
+        <a routerLink="/register">Need an account?</a>
+    </p>
+    @if(backendErrors$ | async){
+    <app-backend-error-messages 
+    [backendErrors]="backendErrors$| async"
+     ></app-backend-error-messages> 
+    }
+    <form [formGroup]="form" (ngSubmit)="onSubmit()">
+        <fieldset class="form-group">
+            <input formControlName="email" type="text" class="" placeholder="Email">
+        </fieldset>
+        <fieldset class="form-group">
+            <input formControlName="password" type="password" class="" placeholder="Password">
+        </fieldset>
+        <button type="submit" class="btn_submit" [disabled]="isSubmitting$ | async">Submit</button>
+    </form>
+</div>

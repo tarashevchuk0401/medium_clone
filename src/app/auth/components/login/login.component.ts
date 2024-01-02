@@ -14,11 +14,11 @@ import {AuthStateInterface} from '../../types/authState.interface';
 import {CommonModule} from '@angular/common';
 import {AuthService} from '../../services/auth.service';
 import {HttpClientModule} from '@angular/common/http';
-import {combineLatest} from 'rxjs';
 import {BackendErrorMessages} from '../../../shared/components/backendErrorMessages/backendErrorMessages.component';
+import { LoginRequestInterface } from '../../types/loginRequest.interface';
 
 @Component({
-    selector: 'app-register',
+    selector: 'app-login',
     standalone: true,
     imports: [
         BackendErrorMessages,
@@ -27,12 +27,11 @@ import {BackendErrorMessages} from '../../../shared/components/backendErrorMessa
         RouterLink,
         HttpClientModule,
     ],
-    templateUrl: './register.component.html',
-    styleUrl: './register.component.scss',
+    templateUrl: './login.component.html',
+    styleUrl: './login.component.scss',
 })
-export class RegisterComponent {
+export class LoginComponent {
     form = this.fb.nonNullable.group({
-        username: ['', Validators.required],
         email: ['', Validators.required],
         password: ['', Validators.required],
     });
@@ -47,10 +46,10 @@ export class RegisterComponent {
     ) {}
 
     onSubmit() {
-        const request: RegisterRequestInterface = {
+        const request: LoginRequestInterface = {
             user: this.form.getRawValue(),
         };
 
-        this.store.dispatch(authActions.register({request}));
+        this.store.dispatch(authActions.login({request}));
     }
 }
