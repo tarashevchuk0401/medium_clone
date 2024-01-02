@@ -1,0 +1,40 @@
+<nav class="navbar">
+    <div class="container">
+        <a routerLink="/">Medium</a>
+        <ul>
+            <li>
+                <a routerLink="/">Home</a>
+            </li>
+            @if(currentUser$ !== null && currentUser$ !== undefined ){
+            <li>
+                <a routerLink="/">
+                    New Post
+                </a>
+            </li>
+            <li>
+                <a routerLink="/settings">
+                    Settings
+                </a>
+            </li>
+            <li>
+                <a [routerLink]="['/profiles', currentUser$.username]">
+                    <img style="width: 30px;" [src]="currentUser$.image" alt="">
+                </a>
+            </li>
+            }
+            @else {
+            <li>
+                <a routerLink="/login">
+                    Log In
+                </a>
+            </li>
+            <li>
+                <a routerLink="/register">
+                    Sign Up
+                </a>
+            </li>
+            }
+        </ul>
+    </div>
+
+</nav>

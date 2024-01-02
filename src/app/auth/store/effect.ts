@@ -41,19 +41,18 @@ export const registerEffect = createEffect(
 );
 
 export const redirectAfterRegisterEffect = createEffect(
-    (actions$ = inject(Actions), router = inject(Router))=> {
+    (actions$ = inject(Actions), router = inject(Router)) => {
         return actions$.pipe(
             ofType(authActions.registerSuccess),
             tap(() => {
-                router.navigateByUrl('/')
+                router.navigateByUrl('/');
             })
-        )
+        );
     },
     {functional: true, dispatch: false}
-)
+);
 
 /////////////////////////////////
-
 
 export const loginEffect = createEffect(
     (
@@ -87,13 +86,42 @@ export const loginEffect = createEffect(
 );
 
 export const redirectAfterLoginEffect = createEffect(
-    (actions$ = inject(Actions), router = inject(Router))=> {
+    (actions$ = inject(Actions), router = inject(Router)) => {
         return actions$.pipe(
             ofType(authActions.loginSuccess),
             tap(() => {
-                router.navigateByUrl('/')
+                router.navigateByUrl('/');
             })
-        )
+        );
     },
     {functional: true, dispatch: false}
-)
+);
+
+////
+
+export const getCurrentUserEffect = createEffect(
+    (
+        actions$ = inject(Actions),
+        authService = inject(AuthService),
+        persistanceService = inject(PersistanceService)
+    ) => {
+        return actions$.pipe(
+            ofType(authActions.getCurrentUser),
+            switchMap(() => {
+                const token = persistanceService.get('accessToken');
+                if (!token) {
+                    return of(authActions.getCurrentUserFailed());
+                }
+                return authService.getCurrentUser().pipe(
+                    map((currentUser: currentUser) => {
+                        return authActions.getCurrentUserSuccess({currentUser});
+                    }),
+                    catchError(() => {
+                        return of(authActions.getCurrentUserFailed());
+                    })
+                );
+            })
+        );
+    },
+    {functional: true}
+);
